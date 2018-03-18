@@ -23,38 +23,18 @@ def get_array(val, cols):
 		d.append(c.pop(random.randrange(len(c))))
 	return d 
 
-def update(hour, minute, blocks, section_to_refresh):
+def update(hour, minute, blocks, section_to_refresh, add):
 	if blocks==None:
 		blocks=[None, None, None, None]
 	if section_to_refresh==None or section_to_refresh==0:
-		blocks[0]=get_array(int(hour/10), 1)
+		blocks[0]=get_array(int(hour/10) + add, parameters.section_widths[0])
 	if section_to_refresh==None or section_to_refresh==1:
-		blocks[1]=get_array(hour%10, 3)
+		blocks[1]=get_array(hour%10 + add, parameters.section_widths[1])
 	if section_to_refresh==None or section_to_refresh==2:
-		blocks[2]=get_array(int(minute/10), 2)
+		blocks[2]=get_array(int(minute/10) + add, parameters.section_widths[2])
 	if section_to_refresh==None or section_to_refresh==3:
-		blocks[3]=get_array(minute%10, 3)
-
+		blocks[3]=get_array(minute%10 + add, parameters.section_widths[3]) 
 	return blocks	
-
-#	for i in range(0, 3):
-#		for l in range(0, lines):
-#			print("")
-#		print(tab, end="")
-#		for j in range(0, len(blocks)):
-#			b=blocks[j]
-#			color=colors[j]
-#			for k in range(0, b['size']):
-#				l=k+i*b['size']
-#				if l in b['val']:
-#					print("%s%s" % (color, led), end="")
-#				else:
-#					print("%s%s" % (empty_cell_color, led), end="")
-#				print("\033[40m%s" % led_space, end="")
-#				#print( )
-#			print("\033[40m%s" % space, end="")
-#		print("\33[0m")
-#	return blocks
 
 def print_block(section, block):
 	# the cursor should be at the top left location before and after that function
