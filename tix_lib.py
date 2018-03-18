@@ -20,21 +20,20 @@ def update(hour, minute):
 	blocks.append(get_array(int(minute/10), 2))
 	blocks.append(get_array(minute%10, 3))
 
-	colors=[31, 32, 34, 31]
+	colors=[41, 42, 44, 41]
 	for i in range(0, 3):
 		print(tab, end="")
 		for j in range(0, len(blocks)):
 			b=blocks[j]
 			color=colors[j]
-			print("\033[%dm" % color, end="")
 			for k in range(0, b['size']):
 				l=k+i*b['size']
 				if l in b['val']:
-					print("#", end="")
+					print("\033[%dm " % color, end="")
 				else:
-					print(" ", end="")
+					print("\033[40m ", end="")
 				#print( )
-			print(space, end="")
+			print("\033[40m%s" % space, end="")
 		print("\33[0m")
 	return blocks
 

@@ -14,5 +14,5 @@ signal.signal(signal.SIGINT, signal_handler)
 while True:
 	g=tix_lib.get_time()
 	tix_lib.update(g[0] % 12, g[1])
-	sleep(random.randrange(0,10)/10+1)
+	sleep(random.randrange(0,10)/10+2.5)
 	tix_lib.go_back_up_three_lines()
