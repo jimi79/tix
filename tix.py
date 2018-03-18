@@ -4,6 +4,7 @@ import datetime
 import random
 from time import sleep
 import sys
+import signal
 
 tab="    " # at the beginning of the clock for each line
 space="  " # between blocks
@@ -47,6 +48,13 @@ def update():
 def go_back_up_three_lines():
 	print("\033[3A", end="")
 
+
+def signal_handler(signal, frame):
+	print("\033[?25h")
+	sys.exit(0)
+
+print("\033[?25l", end="")
+signal.signal(signal.SIGINT, signal_handler)
 while True:
 	update()
 	sleep(random.randrange(0,10)/10+1)
