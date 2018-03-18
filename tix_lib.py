@@ -1,6 +1,5 @@
 import datetime
 import random
-from time import sleep
 
 tab="    " # at the beginning of the clock for each line
 space="  " # between blocks
