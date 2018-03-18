@@ -1,11 +1,21 @@
 import datetime
 import random
 
+use_256_colors=True
+
 tab="    " # at the beginning of the clock for each line
 space="  " # between blocks
 led="  " # size of a led
 led_space=" " # space between leds
 lines=1 # space between lines
+if use_256_colors:
+	colors=[124, 34, 21, 124]
+	colors=["\033[48;5;%dm" % c for c in colors]
+	empty_cell_color="\033[48;5;233m"
+else:
+	colors=[41, 42, 44, 41]
+	colors=["\033[%dm" % c for c in colors]
+	empty_cell_color="\033[40m"
 
 
 def get_array(val, cols):
@@ -24,7 +34,6 @@ def update(hour, minute):
 	blocks.append(get_array(int(minute/10), 2))
 	blocks.append(get_array(minute%10, 3))
 
-	colors=[41, 42, 44, 41]
 	for i in range(0, 3):
 		for l in range(0, lines):
 			print("")
@@ -35,9 +44,9 @@ def update(hour, minute):
 			for k in range(0, b['size']):
 				l=k+i*b['size']
 				if l in b['val']:
-					print("\033[%dm%s" % (color, led), end="")
+					print("%s%s" % (color, led), end="")
 				else:
-					print("\033[40m%s" % led, end="")
+					print("%s%s" % (empty_cell_color, led), end="")
 				print("\033[40m%s" % led_space, end="")
 				#print( )
 			print("\033[40m%s" % space, end="")

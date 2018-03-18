@@ -4,6 +4,7 @@ import signal
 import tix_lib
 from time import sleep
 import random
+import sys
 
 def signal_handler(signal, frame):
 	print("\033[?25h")
