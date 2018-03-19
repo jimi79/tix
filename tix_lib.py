@@ -23,8 +23,8 @@ def get_center():
 	l=a.lines
 	s=parameters.section_widths
 	w=sum(s) * (parameters.led_width + parameters.led_space) # the width of all leds
-	w=w + len(s) * parameters.block_horz_space # space between blocks
-	h=3 * (parameters.block_vert_space + 1) # block size is globally fixed vertically
+	w=w + len(s) * parameters.block_vert_space # space between blocks
+	h=3 * (parameters.block_horz_space + 1) # block size is globally fixed vertically
 	X=int(c/2-w/2)
 	Y=int(l/2-h/2)
 	return {'X':X, 'Y' :Y}
