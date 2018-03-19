@@ -43,11 +43,15 @@ def run():
 				inc=(inc+1)%4
 			delay=0.5
 
+		s="" # string to print
+
 		if parameters.style==1:
 			columns_to_update=[0,1,2,3] 
 			delay=random.randrange(0,10)/10+2.5
+			s=s+"\033[2J"
 
-		s=""
+		s=s+"\033[0;0H" # we put cursor top left
+
 		for column in columns_to_update: 
 			blocks=tix_lib.update(hour=time[0], minute=time[1], blocks=blocks, section_to_refresh=column, add=parameters.style==3)
 			s=s+tix_lib.print_block(column, blocks[column])

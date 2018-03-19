@@ -23,6 +23,11 @@ def get_array(val, cols):
 		d.append(c.pop(random.randrange(len(c))))
 	return d 
 
+def get_cursor_pos_so_that_clock_is_centered():
+	# return the position of the cursor
+# i have to get the screen's size, maybe each time
+	pass
+
 def update(hour, minute, blocks, section_to_refresh, add):
 	if blocks==None:
 		blocks=[None, None, None, None]
@@ -41,7 +46,7 @@ def print_block(section, block):
 	block_left=0
 #block_top is 0
 	lines_down=0
-	output=""
+	output="" # we clear the screen
 	for i in range(0, section): # calculating space before top left of the block to print
 		section_width=parameters.section_widths[i]
 		block_left=block_left+section_width*parameters.led_width+(section_width*parameters.led_space)+parameters.block_vert_space
