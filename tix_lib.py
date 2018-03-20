@@ -97,7 +97,7 @@ def get_time(old_time, format_):
 	hour=now.hour
 	minute=now.minute
 	if format_==12:
-		hour=hour % 12
+		hour=(hour - 1 ) % 12 + 1
 	changed=[]
 	if old_time!=None:
 		if old_time[0] != hour:
