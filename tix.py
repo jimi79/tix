@@ -27,9 +27,9 @@ def run(h24, style, no256):
 
 
 parser = argparse.ArgumentParser(description = 'tix clock')
-parser.add_argument('--24', help = 'use a 24h format time', action = 'store_const', const = True, default = False) 
-parser.add_argument('--style', help = 'style 1, 2 or 3', default = 1) 
-parser.add_argument('--no256', help = 'do not use 256 colors', default = False) 
+parser.add_argument('--24', help = 'use a 24h format time', action = 'store_true', default = False) 
+parser.add_argument('--style', help = 'style 1 or 2', default = 1, type = int) 
+parser.add_argument('--no256', help = 'do not use 256 colors', action = 'store_true', default = False) 
 
 args = parser.parse_args()
 print(args)

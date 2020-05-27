@@ -10,9 +10,9 @@ class DisplaySettings:
         self.block_vert_space = 2
         self.section_widths = [1, 3, 2, 3] 
         if style == 2:
-            self.section_widths=[1, 4, 3, 4]
+            self.section_widths=[4, 4, 4, 4]
 
-        if not use256:
+        if use256:
             self.colors = [124, 34, 21, 124]
             self.esc_colors=["\033[48;5;%dm" % c for c in self.colors]
             self.esc_empty_cell_color="\033[48;5;233m"
@@ -51,6 +51,8 @@ def get_cursor_pos_so_that_clock_is_centered():
     pass
 
 def update(hour, minute, blocks, section_to_refresh, display_settings):
+    # section_to_refresh was used when i thought i could just refresh one block, but it looks bad
+    # i still keep it in case i change the behavior
     if blocks == None:
         blocks=[None, None, None, None]
     if section_to_refresh == None or section_to_refresh == 0:
@@ -114,7 +116,7 @@ def get_time(old_time, format_):
         if old_time[1] !=  minute:
             changed.append(1)
     else:
-        changed = [0,1,2,3]
+        changed = [0, 1, 2 ,3]
     return [[hour, minute], changed]
 
 
