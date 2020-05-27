@@ -3,21 +3,28 @@ import random
 import parameters
 import shutil
 
-if parameters.use_256_colors:
-    colors = [124, 34, 21, 124]
-    esc_colors=["\033[48;5;%dm" % c for c in colors]
-    esc_empty_cell_color="\033[48;5;233m"
-else:
-    colors = [41, 42, 44, 41]
-    esc_colors = ["\033[%dm" % c for c in colors]
-    esc_empty_cell_color = "\033[40m"
+class DisplaySettings:
+    def __init__(style, use256, h24):
+        self.section_widths = [1,3,2,3] 
+        if style == 2:
+            self.section_widths=[1,4,3,4]
+
+        if not use256:
+            self.colors = [124, 34, 21, 124]
+            self.esc_colors=["\033[48;5;%dm" % c for c in colors]
+            self.esc_empty_cell_color="\033[48;5;233m"
+        else:
+            self.colors = [41, 42, 44, 41]
+            self.esc_colors = ["\033[%dm" % c for c in colors]
+            self.esc_empty_cell_color = "\033[40m"
+        self.h24 = h24
 
 # init 
 block_str=""
 for i in range(0, parameters.led_width):
     block_str = block_str+" "
 
-def get_center():
+def get_center(display_settings):
     a = shutil.get_terminal_size()
     c = a.columns
     l = a.lines
@@ -41,7 +48,7 @@ def get_cursor_pos_so_that_clock_is_centered():
 # i have to get the screen's size, maybe each time
     pass
 
-def update(hour, minute, blocks, section_to_refresh):
+def update(hour, minute, blocks, section_to_refresh, display_settings):
     if blocks == None:
         blocks=[None, None, None, None]
     if section_to_refresh == None or section_to_refresh == 0:
@@ -89,7 +96,7 @@ def print_blocks(time, blocks, X, Y):
     s = "\033[2J"
     s = s+"\033[0;0H" # we put cursor top left, we'll change that later
     for i, block in zip(range(0, len(blocks)), blocks):
-        s = s+print_block(i, block, X, Y)
+        s = s + print_block(i, block, X, Y)
     return s
 
 def get_time(old_time, format_):
@@ -109,15 +116,15 @@ def get_time(old_time, format_):
     return [[hour, minute], changed]
 
 
-def update_display(time, blocks, h24): 
+def update_display(time, blocks, display_settings): 
     delay = random.randrange(0,10)/10+2.5 
-    if h24:
+    if display_settings.h24:
         format_ = 24
     else:
         format_ = 12
     time, changed = get_time(old_time = time, format_ = format_)
-    center = get_center()
-    stdout = print_blocks(time, blocks, center['X'], center['Y']) 
+    center = get_center(display_settings)
+    stdout = print_blocks(time, blocks, center['X'], center['Y'], style = style, no256 = no256) 
     return time, blocks, stdout, delay 
     
 
